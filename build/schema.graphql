@@ -1,0 +1,81 @@
+type TranscoderUpdate @entity {
+  id: ID!
+  transcoder: Bytes! # address
+  pendingRewardCut: BigInt! # uint256
+  pendingFeeShare: BigInt! # uint256
+  pendingPricePerSegment: BigInt! # uint256
+  registered: Boolean! # bool
+}
+
+type TranscoderEvicted @entity {
+  id: ID!
+  transcoder: Bytes! # address
+}
+
+type TranscoderResigned @entity {
+  id: ID!
+  transcoder: Bytes! # address
+}
+
+type TranscoderSlashed @entity {
+  id: ID!
+  transcoder: Bytes! # address
+  finder: Bytes! # address
+  penalty: BigInt! # uint256
+  finderReward: BigInt! # uint256
+}
+
+type Reward @entity {
+  id: ID!
+  transcoder: Bytes! # address
+  amount: BigInt! # uint256
+}
+
+type Bond @entity {
+  id: ID!
+  newDelegate: Bytes! # address
+  oldDelegate: Bytes! # address
+  delegator: Bytes! # address
+  additionalAmount: BigInt! # uint256
+  bondedAmount: BigInt! # uint256
+}
+
+type Unbond @entity {
+  id: ID!
+  delegate: Bytes! # address
+  delegator: Bytes! # address
+  unbondingLockId: BigInt! # uint256
+  amount: BigInt! # uint256
+  withdrawRound: BigInt! # uint256
+}
+
+type Rebond @entity {
+  id: ID!
+  delegate: Bytes! # address
+  delegator: Bytes! # address
+  unbondingLockId: BigInt! # uint256
+  amount: BigInt! # uint256
+}
+
+type WithdrawStake @entity {
+  id: ID!
+  delegator: Bytes! # address
+  unbondingLockId: BigInt! # uint256
+  amount: BigInt! # uint256
+  withdrawRound: BigInt! # uint256
+}
+
+type WithdrawFees @entity {
+  id: ID!
+  delegator: Bytes! # address
+}
+
+type SetController @entity {
+  id: ID!
+  controller: Bytes! # address
+}
+
+type ParameterUpdate @entity {
+  id: ID!
+  param: String! # string
+}

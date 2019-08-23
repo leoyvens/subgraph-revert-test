@@ -1,0 +1,16 @@
+{
+  "name": "subgraph-revert-test",
+  "license": "UNLICENSED",
+  "scripts": {
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ --ipfs https://api.thegraph.com/ipfs/ leoyvens/subgraph-revert-test",
+    "create-local": "graph create --node http://localhost:8020/ leoyvens/subgraph-revert-test",
+    "remove-local": "graph remove --node http://localhost:8020/ leoyvens/subgraph-revert-test",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 leoyvens/subgraph-revert-test"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-cli": "0.14.0",
+    "@graphprotocol/graph-ts": "0.14.0"
+  }
+}
