@@ -11,7 +11,8 @@ import {
   EthereumTuple,
   Bytes,
   Address,
-  BigInt
+  BigInt,
+  CallResult
 } from "@graphprotocol/graph-ts";
 
 export class LogSetAuthority extends EthereumEvent {
@@ -238,7 +239,18 @@ export class MelonAccounting extends SmartContract {
 
   DENOMINATION_ASSET(): Address {
     let result = super.call("DENOMINATION_ASSET", []);
+
     return result[0].toAddress();
+  }
+
+  try_DENOMINATION_ASSET(): CallResult<Address> {
+    let result = super.tryCall("DENOMINATION_ASSET", []);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(value[0].toAddress());
   }
 
   calcNav(gav: BigInt, unclaimedFeesInDenominationAsset: BigInt): BigInt {
@@ -246,71 +258,224 @@ export class MelonAccounting extends SmartContract {
       EthereumValue.fromUnsignedBigInt(gav),
       EthereumValue.fromUnsignedBigInt(unclaimedFeesInDenominationAsset)
     ]);
+
     return result[0].toBigInt();
+  }
+
+  try_calcNav(
+    gav: BigInt,
+    unclaimedFeesInDenominationAsset: BigInt
+  ): CallResult<BigInt> {
+    let result = super.tryCall("calcNav", [
+      EthereumValue.fromUnsignedBigInt(gav),
+      EthereumValue.fromUnsignedBigInt(unclaimedFeesInDenominationAsset)
+    ]);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(value[0].toBigInt());
   }
 
   isInAssetList(param0: Address): boolean {
     let result = super.call("isInAssetList", [
       EthereumValue.fromAddress(param0)
     ]);
+
     return result[0].toBoolean();
+  }
+
+  try_isInAssetList(param0: Address): CallResult<boolean> {
+    let result = super.tryCall("isInAssetList", [
+      EthereumValue.fromAddress(param0)
+    ]);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(value[0].toBoolean());
   }
 
   initialized(): boolean {
     let result = super.call("initialized", []);
+
     return result[0].toBoolean();
+  }
+
+  try_initialized(): CallResult<boolean> {
+    let result = super.tryCall("initialized", []);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(value[0].toBoolean());
   }
 
   priceSource(): Address {
     let result = super.call("priceSource", []);
+
     return result[0].toAddress();
+  }
+
+  try_priceSource(): CallResult<Address> {
+    let result = super.tryCall("priceSource", []);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(value[0].toAddress());
   }
 
   hub(): Address {
     let result = super.call("hub", []);
+
     return result[0].toAddress();
+  }
+
+  try_hub(): CallResult<Address> {
+    let result = super.tryCall("hub", []);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(value[0].toAddress());
   }
 
   SHARES_DECIMALS(): BigInt {
     let result = super.call("SHARES_DECIMALS", []);
+
     return result[0].toBigInt();
+  }
+
+  try_SHARES_DECIMALS(): CallResult<BigInt> {
+    let result = super.tryCall("SHARES_DECIMALS", []);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(value[0].toBigInt());
   }
 
   DENOMINATION_ASSET_DECIMALS(): BigInt {
     let result = super.call("DENOMINATION_ASSET_DECIMALS", []);
+
     return result[0].toBigInt();
+  }
+
+  try_DENOMINATION_ASSET_DECIMALS(): CallResult<BigInt> {
+    let result = super.tryCall("DENOMINATION_ASSET_DECIMALS", []);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(value[0].toBigInt());
   }
 
   version(): Address {
     let result = super.call("version", []);
+
     return result[0].toAddress();
+  }
+
+  try_version(): CallResult<Address> {
+    let result = super.tryCall("version", []);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(value[0].toAddress());
   }
 
   calcGav(): BigInt {
     let result = super.call("calcGav", []);
+
     return result[0].toBigInt();
+  }
+
+  try_calcGav(): CallResult<BigInt> {
+    let result = super.tryCall("calcGav", []);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(value[0].toBigInt());
   }
 
   calcGavPerShareNetManagementFee(): BigInt {
     let result = super.call("calcGavPerShareNetManagementFee", []);
+
     return result[0].toBigInt();
+  }
+
+  try_calcGavPerShareNetManagementFee(): CallResult<BigInt> {
+    let result = super.tryCall("calcGavPerShareNetManagementFee", []);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(value[0].toBigInt());
   }
 
   DEFAULT_SHARE_PRICE(): BigInt {
     let result = super.call("DEFAULT_SHARE_PRICE", []);
+
     return result[0].toBigInt();
+  }
+
+  try_DEFAULT_SHARE_PRICE(): CallResult<BigInt> {
+    let result = super.tryCall("DEFAULT_SHARE_PRICE", []);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(value[0].toBigInt());
   }
 
   calcAssetGAV(_queryAsset: Address): BigInt {
     let result = super.call("calcAssetGAV", [
       EthereumValue.fromAddress(_queryAsset)
     ]);
+
     return result[0].toBigInt();
+  }
+
+  try_calcAssetGAV(_queryAsset: Address): CallResult<BigInt> {
+    let result = super.tryCall("calcAssetGAV", [
+      EthereumValue.fromAddress(_queryAsset)
+    ]);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(value[0].toBigInt());
   }
 
   registry(): Address {
     let result = super.call("registry", []);
+
     return result[0].toAddress();
+  }
+
+  try_registry(): CallResult<Address> {
+    let result = super.tryCall("registry", []);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(value[0].toAddress());
   }
 
   getShareCostInAsset(_numShares: BigInt, _altAsset: Address): BigInt {
@@ -318,26 +483,77 @@ export class MelonAccounting extends SmartContract {
       EthereumValue.fromUnsignedBigInt(_numShares),
       EthereumValue.fromAddress(_altAsset)
     ]);
+
     return result[0].toBigInt();
+  }
+
+  try_getShareCostInAsset(
+    _numShares: BigInt,
+    _altAsset: Address
+  ): CallResult<BigInt> {
+    let result = super.tryCall("getShareCostInAsset", [
+      EthereumValue.fromUnsignedBigInt(_numShares),
+      EthereumValue.fromAddress(_altAsset)
+    ]);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(value[0].toBigInt());
   }
 
   mlnToken(): Address {
     let result = super.call("mlnToken", []);
+
     return result[0].toAddress();
+  }
+
+  try_mlnToken(): CallResult<Address> {
+    let result = super.tryCall("mlnToken", []);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(value[0].toAddress());
   }
 
   owner(): Address {
     let result = super.call("owner", []);
+
     return result[0].toAddress();
+  }
+
+  try_owner(): CallResult<Address> {
+    let result = super.tryCall("owner", []);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(value[0].toAddress());
   }
 
   calcSharePrice(): BigInt {
     let result = super.call("calcSharePrice", []);
+
     return result[0].toBigInt();
+  }
+
+  try_calcSharePrice(): CallResult<BigInt> {
+    let result = super.tryCall("calcSharePrice", []);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(value[0].toBigInt());
   }
 
   performCalculations(): MelonAccounting__performCalculationsResult {
     let result = super.call("performCalculations", []);
+
     return new MelonAccounting__performCalculationsResult(
       result[0].toBigInt(),
       result[1].toBigInt(),
@@ -348,8 +564,30 @@ export class MelonAccounting extends SmartContract {
     );
   }
 
+  try_performCalculations(): CallResult<
+    MelonAccounting__performCalculationsResult
+  > {
+    let result = super.tryCall("performCalculations", []);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(
+      new MelonAccounting__performCalculationsResult(
+        value[0].toBigInt(),
+        value[1].toBigInt(),
+        value[2].toBigInt(),
+        value[3].toBigInt(),
+        value[4].toBigInt(),
+        value[5].toBigInt()
+      )
+    );
+  }
+
   atLastAllocation(): MelonAccounting__atLastAllocationResult {
     let result = super.call("atLastAllocation", []);
+
     return new MelonAccounting__atLastAllocationResult(
       result[0].toBigInt(),
       result[1].toBigInt(),
@@ -359,8 +597,27 @@ export class MelonAccounting extends SmartContract {
     );
   }
 
+  try_atLastAllocation(): CallResult<MelonAccounting__atLastAllocationResult> {
+    let result = super.tryCall("atLastAllocation", []);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(
+      new MelonAccounting__atLastAllocationResult(
+        value[0].toBigInt(),
+        value[1].toBigInt(),
+        value[2].toBigInt(),
+        value[3].toBigInt(),
+        value[4].toBigInt()
+      )
+    );
+  }
+
   routes(): MelonAccounting__routesResult {
     let result = super.call("routes", []);
+
     return new MelonAccounting__routesResult(
       result[0].toAddress(),
       result[1].toAddress(),
@@ -377,33 +634,117 @@ export class MelonAccounting extends SmartContract {
     );
   }
 
+  try_routes(): CallResult<MelonAccounting__routesResult> {
+    let result = super.tryCall("routes", []);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(
+      new MelonAccounting__routesResult(
+        value[0].toAddress(),
+        value[1].toAddress(),
+        value[2].toAddress(),
+        value[3].toAddress(),
+        value[4].toAddress(),
+        value[5].toAddress(),
+        value[6].toAddress(),
+        value[7].toAddress(),
+        value[8].toAddress(),
+        value[9].toAddress(),
+        value[10].toAddress(),
+        value[11].toAddress()
+      )
+    );
+  }
+
   NATIVE_ASSET(): Address {
     let result = super.call("NATIVE_ASSET", []);
+
     return result[0].toAddress();
+  }
+
+  try_NATIVE_ASSET(): CallResult<Address> {
+    let result = super.tryCall("NATIVE_ASSET", []);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(value[0].toAddress());
   }
 
   authority(): Address {
     let result = super.call("authority", []);
+
     return result[0].toAddress();
+  }
+
+  try_authority(): CallResult<Address> {
+    let result = super.tryCall("authority", []);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(value[0].toAddress());
   }
 
   engine(): Address {
     let result = super.call("engine", []);
+
     return result[0].toAddress();
+  }
+
+  try_engine(): CallResult<Address> {
+    let result = super.tryCall("engine", []);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(value[0].toAddress());
   }
 
   assetHoldings(_asset: Address): BigInt {
     let result = super.call("assetHoldings", [
       EthereumValue.fromAddress(_asset)
     ]);
+
     return result[0].toBigInt();
+  }
+
+  try_assetHoldings(_asset: Address): CallResult<BigInt> {
+    let result = super.tryCall("assetHoldings", [
+      EthereumValue.fromAddress(_asset)
+    ]);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(value[0].toBigInt());
   }
 
   ownedAssets(param0: BigInt): Address {
     let result = super.call("ownedAssets", [
       EthereumValue.fromUnsignedBigInt(param0)
     ]);
+
     return result[0].toAddress();
+  }
+
+  try_ownedAssets(param0: BigInt): CallResult<Address> {
+    let result = super.tryCall("ownedAssets", [
+      EthereumValue.fromUnsignedBigInt(param0)
+    ]);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(value[0].toAddress());
   }
 
   valuePerShare(totalValue: BigInt, numShares: BigInt): BigInt {
@@ -411,25 +752,77 @@ export class MelonAccounting extends SmartContract {
       EthereumValue.fromUnsignedBigInt(totalValue),
       EthereumValue.fromUnsignedBigInt(numShares)
     ]);
+
     return result[0].toBigInt();
+  }
+
+  try_valuePerShare(totalValue: BigInt, numShares: BigInt): CallResult<BigInt> {
+    let result = super.tryCall("valuePerShare", [
+      EthereumValue.fromUnsignedBigInt(totalValue),
+      EthereumValue.fromUnsignedBigInt(numShares)
+    ]);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(value[0].toBigInt());
   }
 
   getFundHoldings(): MelonAccounting__getFundHoldingsResult {
     let result = super.call("getFundHoldings", []);
+
     return new MelonAccounting__getFundHoldingsResult(
       result[0].toBigIntArray(),
       result[1].toAddressArray()
     );
   }
 
+  try_getFundHoldings(): CallResult<MelonAccounting__getFundHoldingsResult> {
+    let result = super.tryCall("getFundHoldings", []);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(
+      new MelonAccounting__getFundHoldingsResult(
+        value[0].toBigIntArray(),
+        value[1].toAddressArray()
+      )
+    );
+  }
+
   MAX_OWNED_ASSETS(): BigInt {
     let result = super.call("MAX_OWNED_ASSETS", []);
+
     return result[0].toBigInt();
+  }
+
+  try_MAX_OWNED_ASSETS(): CallResult<BigInt> {
+    let result = super.tryCall("MAX_OWNED_ASSETS", []);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(value[0].toBigInt());
   }
 
   getOwnedAssetsLength(): BigInt {
     let result = super.call("getOwnedAssetsLength", []);
+
     return result[0].toBigInt();
+  }
+
+  try_getOwnedAssetsLength(): CallResult<BigInt> {
+    let result = super.tryCall("getOwnedAssetsLength", []);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(value[0].toBigInt());
   }
 }
 

@@ -11,7 +11,8 @@ import {
   EthereumTuple,
   Bytes,
   Address,
-  BigInt
+  BigInt,
+  CallResult
 } from "@graphprotocol/graph-ts";
 
 export class TranscoderUpdate extends EthereumEvent {
@@ -470,7 +471,18 @@ export class BondingManager extends SmartContract {
 
   maxEarningsClaimsRounds(): BigInt {
     let result = super.call("maxEarningsClaimsRounds", []);
+
     return result[0].toBigInt();
+  }
+
+  try_maxEarningsClaimsRounds(): CallResult<BigInt> {
+    let result = super.tryCall("maxEarningsClaimsRounds", []);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(value[0].toBigInt());
   }
 
   isValidUnbondingLock(_delegator: Address, _unbondingLockId: BigInt): boolean {
@@ -478,21 +490,64 @@ export class BondingManager extends SmartContract {
       EthereumValue.fromAddress(_delegator),
       EthereumValue.fromUnsignedBigInt(_unbondingLockId)
     ]);
+
     return result[0].toBoolean();
+  }
+
+  try_isValidUnbondingLock(
+    _delegator: Address,
+    _unbondingLockId: BigInt
+  ): CallResult<boolean> {
+    let result = super.tryCall("isValidUnbondingLock", [
+      EthereumValue.fromAddress(_delegator),
+      EthereumValue.fromUnsignedBigInt(_unbondingLockId)
+    ]);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(value[0].toBoolean());
   }
 
   delegatorStatus(_delegator: Address): i32 {
     let result = super.call("delegatorStatus", [
       EthereumValue.fromAddress(_delegator)
     ]);
+
     return result[0].toI32();
+  }
+
+  try_delegatorStatus(_delegator: Address): CallResult<i32> {
+    let result = super.tryCall("delegatorStatus", [
+      EthereumValue.fromAddress(_delegator)
+    ]);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(value[0].toI32());
   }
 
   getNextTranscoderInPool(_transcoder: Address): Address {
     let result = super.call("getNextTranscoderInPool", [
       EthereumValue.fromAddress(_transcoder)
     ]);
+
     return result[0].toAddress();
+  }
+
+  try_getNextTranscoderInPool(_transcoder: Address): CallResult<Address> {
+    let result = super.tryCall("getNextTranscoderInPool", [
+      EthereumValue.fromAddress(_transcoder)
+    ]);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(value[0].toAddress());
   }
 
   getTranscoderEarningsPoolForRound(
@@ -503,6 +558,7 @@ export class BondingManager extends SmartContract {
       EthereumValue.fromAddress(_transcoder),
       EthereumValue.fromUnsignedBigInt(_round)
     ]);
+
     return new BondingManager__getTranscoderEarningsPoolForRoundResult(
       result[0].toBigInt(),
       result[1].toBigInt(),
@@ -516,16 +572,68 @@ export class BondingManager extends SmartContract {
     );
   }
 
+  try_getTranscoderEarningsPoolForRound(
+    _transcoder: Address,
+    _round: BigInt
+  ): CallResult<BondingManager__getTranscoderEarningsPoolForRoundResult> {
+    let result = super.tryCall("getTranscoderEarningsPoolForRound", [
+      EthereumValue.fromAddress(_transcoder),
+      EthereumValue.fromUnsignedBigInt(_round)
+    ]);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(
+      new BondingManager__getTranscoderEarningsPoolForRoundResult(
+        value[0].toBigInt(),
+        value[1].toBigInt(),
+        value[2].toBigInt(),
+        value[3].toBigInt(),
+        value[4].toBigInt(),
+        value[5].toBigInt(),
+        value[6].toBigInt(),
+        value[7].toBigInt(),
+        value[8].toBoolean()
+      )
+    );
+  }
+
   getTranscoderPoolSize(): BigInt {
     let result = super.call("getTranscoderPoolSize", []);
+
     return result[0].toBigInt();
+  }
+
+  try_getTranscoderPoolSize(): CallResult<BigInt> {
+    let result = super.tryCall("getTranscoderPoolSize", []);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(value[0].toBigInt());
   }
 
   activeTranscoderSet(param0: BigInt): BigInt {
     let result = super.call("activeTranscoderSet", [
       EthereumValue.fromUnsignedBigInt(param0)
     ]);
+
     return result[0].toBigInt();
+  }
+
+  try_activeTranscoderSet(param0: BigInt): CallResult<BigInt> {
+    let result = super.tryCall("activeTranscoderSet", [
+      EthereumValue.fromUnsignedBigInt(param0)
+    ]);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(value[0].toBigInt());
   }
 
   getDelegatorUnbondingLock(
@@ -536,31 +644,87 @@ export class BondingManager extends SmartContract {
       EthereumValue.fromAddress(_delegator),
       EthereumValue.fromUnsignedBigInt(_unbondingLockId)
     ]);
+
     return new BondingManager__getDelegatorUnbondingLockResult(
       result[0].toBigInt(),
       result[1].toBigInt()
     );
   }
 
+  try_getDelegatorUnbondingLock(
+    _delegator: Address,
+    _unbondingLockId: BigInt
+  ): CallResult<BondingManager__getDelegatorUnbondingLockResult> {
+    let result = super.tryCall("getDelegatorUnbondingLock", [
+      EthereumValue.fromAddress(_delegator),
+      EthereumValue.fromUnsignedBigInt(_unbondingLockId)
+    ]);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(
+      new BondingManager__getDelegatorUnbondingLockResult(
+        value[0].toBigInt(),
+        value[1].toBigInt()
+      )
+    );
+  }
+
   targetContractId(): Bytes {
     let result = super.call("targetContractId", []);
+
     return result[0].toBytes();
+  }
+
+  try_targetContractId(): CallResult<Bytes> {
+    let result = super.tryCall("targetContractId", []);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(value[0].toBytes());
   }
 
   getTranscoderPoolMaxSize(): BigInt {
     let result = super.call("getTranscoderPoolMaxSize", []);
+
     return result[0].toBigInt();
+  }
+
+  try_getTranscoderPoolMaxSize(): CallResult<BigInt> {
+    let result = super.tryCall("getTranscoderPoolMaxSize", []);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(value[0].toBigInt());
   }
 
   getTotalBonded(): BigInt {
     let result = super.call("getTotalBonded", []);
+
     return result[0].toBigInt();
+  }
+
+  try_getTotalBonded(): CallResult<BigInt> {
+    let result = super.tryCall("getTotalBonded", []);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(value[0].toBigInt());
   }
 
   getTranscoder(_transcoder: Address): BondingManager__getTranscoderResult {
     let result = super.call("getTranscoder", [
       EthereumValue.fromAddress(_transcoder)
     ]);
+
     return new BondingManager__getTranscoderResult(
       result[0].toBigInt(),
       result[1].toBigInt(),
@@ -572,28 +736,100 @@ export class BondingManager extends SmartContract {
     );
   }
 
+  try_getTranscoder(
+    _transcoder: Address
+  ): CallResult<BondingManager__getTranscoderResult> {
+    let result = super.tryCall("getTranscoder", [
+      EthereumValue.fromAddress(_transcoder)
+    ]);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(
+      new BondingManager__getTranscoderResult(
+        value[0].toBigInt(),
+        value[1].toBigInt(),
+        value[2].toBigInt(),
+        value[3].toBigInt(),
+        value[4].toBigInt(),
+        value[5].toBigInt(),
+        value[6].toBigInt()
+      )
+    );
+  }
+
   numActiveTranscoders(): BigInt {
     let result = super.call("numActiveTranscoders", []);
+
     return result[0].toBigInt();
+  }
+
+  try_numActiveTranscoders(): CallResult<BigInt> {
+    let result = super.tryCall("numActiveTranscoders", []);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(value[0].toBigInt());
   }
 
   isRegisteredTranscoder(_transcoder: Address): boolean {
     let result = super.call("isRegisteredTranscoder", [
       EthereumValue.fromAddress(_transcoder)
     ]);
+
     return result[0].toBoolean();
+  }
+
+  try_isRegisteredTranscoder(_transcoder: Address): CallResult<boolean> {
+    let result = super.tryCall("isRegisteredTranscoder", [
+      EthereumValue.fromAddress(_transcoder)
+    ]);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(value[0].toBoolean());
   }
 
   unbondingPeriod(): BigInt {
     let result = super.call("unbondingPeriod", []);
+
     return result[0].toBigInt();
+  }
+
+  try_unbondingPeriod(): CallResult<BigInt> {
+    let result = super.tryCall("unbondingPeriod", []);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(value[0].toBigInt());
   }
 
   getTotalActiveStake(_round: BigInt): BigInt {
     let result = super.call("getTotalActiveStake", [
       EthereumValue.fromUnsignedBigInt(_round)
     ]);
+
     return result[0].toBigInt();
+  }
+
+  try_getTotalActiveStake(_round: BigInt): CallResult<BigInt> {
+    let result = super.tryCall("getTotalActiveStake", [
+      EthereumValue.fromUnsignedBigInt(_round)
+    ]);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(value[0].toBigInt());
   }
 
   isActiveTranscoder(_transcoder: Address, _round: BigInt): boolean {
@@ -601,19 +837,60 @@ export class BondingManager extends SmartContract {
       EthereumValue.fromAddress(_transcoder),
       EthereumValue.fromUnsignedBigInt(_round)
     ]);
+
     return result[0].toBoolean();
+  }
+
+  try_isActiveTranscoder(
+    _transcoder: Address,
+    _round: BigInt
+  ): CallResult<boolean> {
+    let result = super.tryCall("isActiveTranscoder", [
+      EthereumValue.fromAddress(_transcoder),
+      EthereumValue.fromUnsignedBigInt(_round)
+    ]);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(value[0].toBoolean());
   }
 
   getFirstTranscoderInPool(): Address {
     let result = super.call("getFirstTranscoderInPool", []);
+
     return result[0].toAddress();
+  }
+
+  try_getFirstTranscoderInPool(): CallResult<Address> {
+    let result = super.tryCall("getFirstTranscoderInPool", []);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(value[0].toAddress());
   }
 
   transcoderStatus(_transcoder: Address): i32 {
     let result = super.call("transcoderStatus", [
       EthereumValue.fromAddress(_transcoder)
     ]);
+
     return result[0].toI32();
+  }
+
+  try_transcoderStatus(_transcoder: Address): CallResult<i32> {
+    let result = super.tryCall("transcoderStatus", [
+      EthereumValue.fromAddress(_transcoder)
+    ]);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(value[0].toI32());
   }
 
   electActiveTranscoder(
@@ -626,7 +903,26 @@ export class BondingManager extends SmartContract {
       EthereumValue.fromFixedBytes(_blockHash),
       EthereumValue.fromUnsignedBigInt(_round)
     ]);
+
     return result[0].toAddress();
+  }
+
+  try_electActiveTranscoder(
+    _maxPricePerSegment: BigInt,
+    _blockHash: Bytes,
+    _round: BigInt
+  ): CallResult<Address> {
+    let result = super.tryCall("electActiveTranscoder", [
+      EthereumValue.fromUnsignedBigInt(_maxPricePerSegment),
+      EthereumValue.fromFixedBytes(_blockHash),
+      EthereumValue.fromUnsignedBigInt(_round)
+    ]);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(value[0].toAddress());
   }
 
   pendingStake(_delegator: Address, _endRound: BigInt): BigInt {
@@ -634,20 +930,48 @@ export class BondingManager extends SmartContract {
       EthereumValue.fromAddress(_delegator),
       EthereumValue.fromUnsignedBigInt(_endRound)
     ]);
+
     return result[0].toBigInt();
+  }
+
+  try_pendingStake(_delegator: Address, _endRound: BigInt): CallResult<BigInt> {
+    let result = super.tryCall("pendingStake", [
+      EthereumValue.fromAddress(_delegator),
+      EthereumValue.fromUnsignedBigInt(_endRound)
+    ]);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(value[0].toBigInt());
   }
 
   transcoderTotalStake(_transcoder: Address): BigInt {
     let result = super.call("transcoderTotalStake", [
       EthereumValue.fromAddress(_transcoder)
     ]);
+
     return result[0].toBigInt();
+  }
+
+  try_transcoderTotalStake(_transcoder: Address): CallResult<BigInt> {
+    let result = super.tryCall("transcoderTotalStake", [
+      EthereumValue.fromAddress(_transcoder)
+    ]);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(value[0].toBigInt());
   }
 
   getDelegator(_delegator: Address): BondingManager__getDelegatorResult {
     let result = super.call("getDelegator", [
       EthereumValue.fromAddress(_delegator)
     ]);
+
     return new BondingManager__getDelegatorResult(
       result[0].toBigInt(),
       result[1].toBigInt(),
@@ -659,12 +983,53 @@ export class BondingManager extends SmartContract {
     );
   }
 
+  try_getDelegator(
+    _delegator: Address
+  ): CallResult<BondingManager__getDelegatorResult> {
+    let result = super.tryCall("getDelegator", [
+      EthereumValue.fromAddress(_delegator)
+    ]);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(
+      new BondingManager__getDelegatorResult(
+        value[0].toBigInt(),
+        value[1].toBigInt(),
+        value[2].toAddress(),
+        value[3].toBigInt(),
+        value[4].toBigInt(),
+        value[5].toBigInt(),
+        value[6].toBigInt()
+      )
+    );
+  }
+
   activeTranscoderTotalStake(_transcoder: Address, _round: BigInt): BigInt {
     let result = super.call("activeTranscoderTotalStake", [
       EthereumValue.fromAddress(_transcoder),
       EthereumValue.fromUnsignedBigInt(_round)
     ]);
+
     return result[0].toBigInt();
+  }
+
+  try_activeTranscoderTotalStake(
+    _transcoder: Address,
+    _round: BigInt
+  ): CallResult<BigInt> {
+    let result = super.tryCall("activeTranscoderTotalStake", [
+      EthereumValue.fromAddress(_transcoder),
+      EthereumValue.fromUnsignedBigInt(_round)
+    ]);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(value[0].toBigInt());
   }
 
   pendingFees(_delegator: Address, _endRound: BigInt): BigInt {
@@ -672,12 +1037,37 @@ export class BondingManager extends SmartContract {
       EthereumValue.fromAddress(_delegator),
       EthereumValue.fromUnsignedBigInt(_endRound)
     ]);
+
     return result[0].toBigInt();
+  }
+
+  try_pendingFees(_delegator: Address, _endRound: BigInt): CallResult<BigInt> {
+    let result = super.tryCall("pendingFees", [
+      EthereumValue.fromAddress(_delegator),
+      EthereumValue.fromUnsignedBigInt(_endRound)
+    ]);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(value[0].toBigInt());
   }
 
   controller(): Address {
     let result = super.call("controller", []);
+
     return result[0].toAddress();
+  }
+
+  try_controller(): CallResult<Address> {
+    let result = super.tryCall("controller", []);
+    if (result.reverted) {
+      return new CallResult();
+    }
+    let value = result.value;
+
+    return CallResult.fromValue(value[0].toAddress());
   }
 }
 

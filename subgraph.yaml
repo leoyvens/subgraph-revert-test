@@ -2,26 +2,24 @@ specVersion: 0.0.1
 schema:
   file: ./schema.graphql
 dataSources:
-  # - kind: ethereum/contract
-  #   name: Contract
-  #   network: mainnet
-  #   source:
-  #     address: "511bc4556d823ae99630ae8de28b9b80df90ea2e"
-  #     abi: BondingManager
-  #   mapping:
-  #     kind: ethereum/events
-  #     apiVersion: 0.0.3
-  #     language: wasm/assemblyscript
-  #     entities: []
-  #     abis:
-  #       - name: BondingManager
-  #         file: ./abis/bondingManager_LIP11.json
-  #       - name: MelonAccounting
-  #         file: ./abis/MelonAccounting.json
-  #     eventHandlers:
-  #       - event: Bond(indexed address,indexed address,indexed address,uint256,uint256)
-  #         handler: bond
-  #     file: ./src/mapping.ts
+  - kind: ethereum/contract
+    name: Contract
+    network: mainnet
+    source:
+      address: "511bc4556d823ae99630ae8de28b9b80df90ea2e"
+      abi: BondingManager
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.3
+      language: wasm/assemblyscript
+      entities: []
+      abis:
+        - name: BondingManager
+          file: ./abis/bondingManager_LIP11.json
+      eventHandlers:
+        - event: Bond(indexed address,indexed address,indexed address,uint256,uint256)
+          handler: bond
+      file: ./src/mapping.ts
   - kind: ethereum/contract
     name: Accounting
     network: mainnet
@@ -34,8 +32,6 @@ dataSources:
       language: wasm/assemblyscript
       entities: []
       abis:
-        - name: BondingManager
-          file: ./abis/bondingManager_LIP11.json
         - name: MelonAccounting
           file: ./abis/MelonAccounting.json
       eventHandlers:

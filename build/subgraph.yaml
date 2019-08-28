@@ -3,6 +3,24 @@ schema:
   file: schema.graphql
 dataSources:
   - kind: ethereum/contract
+    name: Contract
+    network: mainnet
+    source:
+      address: 511bc4556d823ae99630ae8de28b9b80df90ea2e
+      abi: BondingManager
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.3
+      language: wasm/assemblyscript
+      entities: []
+      abis:
+        - name: BondingManager
+          file: Contract/abis/bondingManager_LIP11.json
+      eventHandlers:
+        - event: Bond(indexed address,indexed address,indexed address,uint256,uint256)
+          handler: bond
+      file: Contract/Contract.wasm
+  - kind: ethereum/contract
     name: Accounting
     network: mainnet
     source:
@@ -14,8 +32,6 @@ dataSources:
       language: wasm/assemblyscript
       entities: []
       abis:
-        - name: BondingManager
-          file: Accounting/abis/bondingManager_LIP11.json
         - name: MelonAccounting
           file: Accounting/abis/MelonAccounting.json
       eventHandlers:
